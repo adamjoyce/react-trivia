@@ -1,0 +1,22 @@
+/* Variables */
+$title-font-stack: 'Lobster', cursive;
+$text-font-stack: 'Cabin', sans-serif;
+/* End of Variables */
+
+
+/* Reusable Generic Selectors/Components */
+body {
+  color: #393e46;
+  background-color: #eee;
+  font-family: $text-font-stack;
+}
+
+h1 {
+  color: #00adb5;
+  font-family: $title-font-stack;
+  font-size: 4rem;
+}
+/* End of Reusable Generic Selectors/Components */
+
+/* Welcome Page */
+/* End of Welcome Page */
