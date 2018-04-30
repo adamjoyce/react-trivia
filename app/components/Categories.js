@@ -1,5 +1,7 @@
 var React = require('react');
 var PropTypes = require('prop-types');
+var ReactRouter = require('react-router-dom');
+var Link = ReactRouter.Link;
 
 var api = require('../utils/api');
 
@@ -8,7 +10,8 @@ class Categories extends React.Component {
     super(props);
     this.state = {
       categories: [],
-      updateCategories: null
+      updateCategories: null,
+      loading: true
     };
   }
 
@@ -24,7 +27,8 @@ class Categories extends React.Component {
         // Update local categories.
         this.setState(function() {
           return {
-            categories: sortedCategories
+            categories: sortedCategories,
+            loading: false
           };
         });
         console.log(sortedCategories);
@@ -34,7 +38,8 @@ class Categories extends React.Component {
       // Use the already cached categories.
       this.setState(function() {
         return {
-          categories: this.props.categorites
+          categories: this.props.categories,
+          loading: false
         };
       });
     }
@@ -84,11 +89,19 @@ class Categories extends React.Component {
     return (
       <div className="categories-container">
         <h3 className="category-title">Select a Category</h3>
-        <div className="categories">
-          {this.state.categories.map(function(category) {
-            return <button key={category.name}>{category.name}</button>;
-          })}
-        </div>
+        {this.state.loading === true
+          ? <div>Loading</div>
+          : <div className="categories">
+              {this.state.categories.map(function(category) {
+                return (
+                  <Link
+                    to={'/' + category.name}
+                    key={category.name}>
+                      {category.name}
+                  </Link>
+                );
+              })}
+            </div>}
       </div>
     );
   }

@@ -5,6 +5,7 @@ var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 
 var Categories = require('./Categories');
+var Category = require('./Category');
 
 class App extends React.Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class App extends React.Component {
               />
             );
           }.bind(this)} />
+          <Route path="/:categoryId" component={Category} />
         </div>
       </Router>
     );
