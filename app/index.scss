@@ -1,22 +1,77 @@
 /* Variables */
+$primary-color: #00adb5;
+$primary-color-light: rgba(0, 173, 181, 0.65);
+$secondary-color: #eee;
+$tertiary-color: #222831;
 $title-font-stack: 'Lobster', cursive;
 $text-font-stack: 'Cabin', sans-serif;
+$default-v-margin: 1rem 0;
 /* End of Variables */
 
 
-/* Reusable Generic Selectors/Components */
+/* Generic Selectors/Components */
+html {
+  height: 100%;
+}
+
+#app {
+  align-items: center;
+  display: grid;
+  height: 100%;
+  margin: 0 1rem;
+}
+
 body {
-  color: #393e46;
-  background-color: #eee;
+  color: $tertiary-color;
+  background-color: $secondary-color;
   font-family: $text-font-stack;
+  height: 100%;
 }
 
 h1 {
-  color: #00adb5;
+  color: $primary-color;
   font-family: $title-font-stack;
   font-size: 4rem;
 }
-/* End of Reusable Generic Selectors/Components */
 
-/* Welcome Page */
-/* End of Welcome Page */
+h3 {
+  font-size: 1.5rem;
+}
+
+button {
+  background-color: $primary-color;
+  border: none;
+  border-radius: 5px;
+  color: $secondary-color;
+  font-size: 1rem;
+  padding: 0.4rem;
+}
+
+button:hover {
+  background-color: $primary-color-light;
+}
+
+.container {
+  text-align: center;
+}
+
+.trivia-title {
+  margin: $default-v-margin;
+}
+
+.categories-container {
+  margin: $default-v-margin;
+}
+
+.category-title {
+  margin: $default-v-margin;
+}
+
+.categories {
+  display: grid;
+  grid-gap: 0.2rem;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 auto;
+  width: 20rem;
+}
+/* End of Reusable Generic Selectors/Components */
