@@ -11,12 +11,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
     };
-    this.handleCategories = this.handleCategories.bind(this);
+    this.updateCategories = this.updateCategories.bind(this);
   }
 
-  handleCategories(categories) {
+  updateCategories(categories) {
     this.setState(function() {
       return {
         categories: categories
@@ -33,12 +33,21 @@ class App extends React.Component {
             return (
               <Categories
                 categories={this.state.categories}
-                updateCategories={this.handleCategories}
+                updateCategories={this.updateCategories}
                 {...props}
               />
             );
           }.bind(this)} />
-          <Route path="/:categoryId" component={Category} />
+          <Route path="/:categorySlug" render={function({props, match}) {
+            return (
+              <Category
+                category={this.state.categories.filter(function(category) {
+                  return category.slug === match.params.categorySlug;
+                })[0]}
+                {...props}
+              />
+            );
+          }.bind(this)} />
         </div>
       </Router>
     );
