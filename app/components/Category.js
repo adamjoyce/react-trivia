@@ -1,5 +1,9 @@
-var React = require('react');
-var PropTypes = require('prop-types');
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
+import Loading from './Loading';
+import {getCategories} from '../utils/api';
 
 class Category extends React.Component {
   constructor(props) {
@@ -14,27 +18,48 @@ class Category extends React.Component {
     if (!this.props.category) {
       // User didn't come from home page - must recalculate category details
       // using the api and url slug.
+      getCategories().then((response) => {
+        const category = response.filter((category) =>
+          category.slug === this.props.match.params.categorySlug)[0];
+
+        this.setState(() => ({
+          category,
+          loading: false
+        }));
+
+        console.log(this.state.category);
+      });
     }
     else {
-      this.setState(function() {
-        return {
-          category: this.props.category,
-          loading: false
-        }
-      });
+      this.setState(() => ({
+        category: this.props.category,
+        loading: false
+      }));
     }
   }
 
   render() {
-    var category = this.state.category;
+    const category = this.state.category;
+    const match = this.props.match;
     return (
-      this.state.loading
-        ? <div>Loading</div>
-        : <div>
-          <p>Category: {category.name}</p>
-          <p>Slug: {category.slug}</p>
-          <p>ID: {category.id}</p>
-          </div>
+      <div className="categories-container">
+        <h3 className="category-title">Select the Number of Questions</h3>
+        {this.state.loading
+          ? <Loading />
+          : this.state.category
+            ? <div className="categories">
+                <Link to={`${match.url}/10/1`}>
+                  10 Questions
+                </Link>
+                <Link to={`${match.url}/25/1`}>
+                  25 Questions
+                </Link>
+                <Link to={`${match.url}/50/1`}>
+                  50 Questions
+                </Link>
+              </div>
+            : <p>'{match.params.categorySlug}' is not a valid category.</p>}
+      </div>
     );
   }
 }
@@ -43,4 +68,4 @@ Category.proptypes = {
   category: PropTypes.object.isRequired
 }
 
-module.exports = Category;
+export default Category;

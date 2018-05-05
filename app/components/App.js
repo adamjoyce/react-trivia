@@ -1,11 +1,9 @@
-var React = require('react');
-var ReactRouter = require('react-router-dom');
-var Router = ReactRouter.BrowserRouter;
-var Route = ReactRouter.Route;
-var Link = ReactRouter.Link;
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-var Categories = require('./Categories');
-var Category = require('./Category');
+import Categories from './Categories';
+import Category from './Category';
+import Questions from './Questions';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,11 +15,7 @@ class App extends React.Component {
   }
 
   updateCategories(categories) {
-    this.setState(function() {
-      return {
-        categories: categories
-      }
-    });
+    this.setState(() => categories);
   }
 
   render() {
@@ -29,29 +23,29 @@ class App extends React.Component {
       <Router>
         <div className="container">
           <h1 className="trivia-title">React Trivia</h1>
-          <Route exact path="/" render={function(props) {
-            return (
-              <Categories
-                categories={this.state.categories}
-                updateCategories={this.updateCategories}
-                {...props}
-              />
-            );
-          }.bind(this)} />
-          <Route path="/:categorySlug" render={function({props, match}) {
-            return (
-              <Category
-                category={this.state.categories.filter(function(category) {
-                  return category.slug === match.params.categorySlug;
-                })[0]}
-                {...props}
-              />
-            );
-          }.bind(this)} />
+          <Route exact path="/" render={(props) =>
+            <Categories
+              categories={this.state.categories}
+              updateCategories={this.updateCategories}
+              {...props}
+            />
+          } />
+          <Route exact path="/:categorySlug" render={({props, match}) =>
+            <Category
+              category={this.state.categories.filter((category) =>
+                category.slug === match.params.categorySlug)[0]}
+              match={match}
+              {...props}
+            />
+          } />
+          <Route
+            path="/:categorySlug/:questionsCount/:questionId"
+            render={(props) => <Questions {...props} />}
+          />
         </div>
       </Router>
     );
   }
 }
 
-module.exports = App;
+export default App;
