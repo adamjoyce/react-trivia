@@ -14,12 +14,12 @@ html {
   height: 100%;
 }
 
-#app {
-  align-items: center;
-  display: grid;
-  height: 100%;
-  margin: 0 1rem;
-}
+// #app {
+//   align-items: center;
+//   display: grid;
+//   height: 100%;
+//   margin: 0 1rem;
+// }
 
 body {
   color: $tertiary-color;
@@ -28,55 +28,55 @@ body {
   height: 100%;
 }
 
-h1 {
-  color: $primary-color;
-  font-family: $title-font-stack;
-  font-size: 4rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
-
-a {
-  background-color: $primary-color;
-  border: none;
-  border-radius: 5px;
-  color: $secondary-color;
-  font-size: 1rem;
-  padding: 0.4rem;
-  text-decoration: none;
-}
-
-a:hover {
-  background-color: $primary-color-light;
-}
-
-.container {
-  text-align: center;
-}
-
-.trivia-title {
-  margin: $default-v-margin;
-
-  a {
-
-  }
-}
-
-.categories-container {
-  margin: $default-v-margin;
-}
-
-.category-title {
-  margin: $default-v-margin;
-}
-
-.categories {
-  display: grid;
-  grid-gap: 0.2rem;
-  grid-template-columns: 1fr 1fr 1fr;
-  margin: 0 auto;
-  width: 90%;
-}
-/* End of Reusable Generic Selectors/Components */
+// h1 {
+//   color: $primary-color;
+//   font-family: $title-font-stack;
+//   font-size: 4rem;
+// }
+//
+// h3 {
+//   font-size: 1.5rem;
+// }
+//
+// a {
+//   background-color: $primary-color;
+//   border: none;
+//   border-radius: 5px;
+//   color: $secondary-color;
+//   font-size: 1rem;
+//   padding: 0.4rem;
+//   text-decoration: none;
+// }
+//
+// a:hover {
+//   background-color: $primary-color-light;
+// }
+//
+// .container {
+//   text-align: center;
+// }
+//
+// .trivia-title {
+//   margin: $default-v-margin;
+//
+//   a {
+//
+//   }
+// }
+//
+// .categories-container {
+//   margin: $default-v-margin;
+// }
+//
+// .category-title {
+//   margin: $default-v-margin;
+// }
+//
+// .categories {
+//   display: grid;
+//   grid-gap: 0.2rem;
+//   grid-template-columns: 1fr 1fr 1fr;
+//   margin: 0 auto;
+//   width: 90%;
+// }
+// /* End of Reusable Generic Selectors/Components */

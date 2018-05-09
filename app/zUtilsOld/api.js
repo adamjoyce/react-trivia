@@ -24,3 +24,19 @@ export async function getCategories() {
   const categories = await response.json();
   return formatCategories(categories.trivia_categories);
 }
+
+export async function getSessionToken() {
+  const response = await fetch(
+    'https://opentdb.com/api_token.php?command=request'
+  );
+  const sessionToken = await response.json();
+  return sessionToken.token;
+}
+
+export async function getQuestions(categoryId, questionsCount, sessionToken) {
+  const response = await fetch(
+    `https://opentdb.com/api.php?amount=${questionsCount}&category=${categoryId}&token=${sessionToken}`
+  );
+  const questions = await response.json();
+  return questions.results;
+}

@@ -16,11 +16,11 @@ class Categories extends React.Component {
   }
 
   async componentDidMount() {
-    if (this.props.categories.length === 0) {
+    const {categories, updateCategories} = this.props;
+    if (categories.length === 0) {
       // Grab the categoires from the api.
       const response = await getCategories();
-      console.log(response);
-      this.props.updateCategories(response);
+      updateCategories(response);
       this.setState(() => ({
         categories: response,
         loading: false
@@ -29,20 +29,21 @@ class Categories extends React.Component {
     else {
       // Use the already cached categories.
       this.setState(() => ({
-        categories: this.props.categories,
+        categories,
         loading: false
       }));
     }
   }
 
   render() {
+    const {loading, categories} = this.state;
     return (
       <div className="categories-container">
         <h3 className="category-title">Select a Category</h3>
-        {this.state.loading === true
+        {loading === true
           ? <Loading />
           : <div className="categories">
-              {this.state.categories.map((category) =>
+              {categories.map((category) =>
                 <Link
                   to={`/${category.slug}`}
                   key={category.slug}>
