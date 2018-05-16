@@ -6,9 +6,6 @@ import Players from './Players';
 class App extends React.Component {
   render() {
     return(
-      // <Router>
-      //   <Route path="/" component={PlayerSelection} />
-      // </Router>
       <Players />
     );
   }

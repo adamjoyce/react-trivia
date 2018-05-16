@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import converter from 'number-to-words';
 
 import Categories from './Categories';
+import {wordifyNumber} from '../utils/helpers'
 
 class Players extends React.Component {
   constructor(props) {
@@ -26,32 +26,33 @@ class Players extends React.Component {
     if (!playerCount) {
       for (let i = 0; i < maxPlayers; i++) {
         const playerNumber = i + 1;
-
-        // 'Wordify' the number of players and give it a capital.
-        let convertedNumber = converter.toWords(playerNumber);
-        convertedNumber = convertedNumber[0].toUpperCase()
-          + convertedNumber.substring(1);
+        const wordifiedNumber = wordifyNumber(playerNumber);
 
         playerButtons.push(
           <button
             key={playerNumber}
             onClick={() => this.selectPlayers(playerNumber)}>
             {/* Deal with singular player instance. */}
-            {convertedNumber !== 'One'
-              ? `${convertedNumber} Players`
-              : `${convertedNumber} Player`}
+            {wordifiedNumber !== 'One'
+              ? `${wordifiedNumber} Players`
+              : `One Player`}
           </button>
         );
       }
     }
 
     return(
-      !playerCount
-        ? <div>
-            <h1>How many of you want to play?</h1>
-            {playerButtons}
-          </div>
-        : <Categories playerCount={playerCount} />
+      <React.Fragment>
+        <a className="app-title" href="/"><h1>React Trivia</h1></a>
+        <div className="question-wrapper">
+          {!playerCount
+            ? <React.Fragment>
+                <h2 className="instruction">How many of you want to play?</h2>
+                {playerButtons}
+              </React.Fragment>
+            : <Categories playerCount={playerCount} />}
+        </div>
+      </React.Fragment>
     );
   }
 }

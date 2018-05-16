@@ -1,4 +1,3 @@
-/* Variables */
 $primary-color: #00adb5;
 $primary-color-light: rgba(0, 173, 181, 0.65);
 $secondary-color: #eee;
@@ -6,78 +5,35 @@ $tertiary-color: #222831;
 $title-font-stack: 'Lobster', cursive;
 $text-font-stack: 'Cabin', sans-serif;
 $default-v-margin: 1rem 0;
-/* End of Variables */
 
-
-/* Generic Selectors/Components */
 html {
   height: 100%;
 }
 
-// #app {
-//   align-items: center;
-//   display: grid;
-//   height: 100%;
-//   margin: 0 1rem;
-// }
-
 body {
-  color: $tertiary-color;
+  align-items: center;
   background-color: $secondary-color;
+  color: $tertiary-color;
+  display: grid;
   font-family: $text-font-stack;
   height: 100%;
+  margin: 0 1rem;
   text-align: center;
 }
 
-// h1 {
-//   color: $primary-color;
-//   font-family: $title-font-stack;
-//   font-size: 4rem;
-// }
-//
-// h3 {
-//   font-size: 1.5rem;
-// }
-//
-// a {
-//   background-color: $primary-color;
-//   border: none;
-//   border-radius: 5px;
-//   color: $secondary-color;
-//   font-size: 1rem;
-//   padding: 0.4rem;
-//   text-decoration: none;
-// }
-//
-// a:hover {
-//   background-color: $primary-color-light;
-// }
-//
-// .container {
-//   text-align: center;
-// }
-//
-// .trivia-title {
-//   margin: $default-v-margin;
-//
-//   a {
-//
-//   }
-// }
-//
-// .categories-container {
-//   margin: $default-v-margin;
-// }
-//
-// .category-title {
-//   margin: $default-v-margin;
-// }
-//
-// .categories {
-//   display: grid;
-//   grid-gap: 0.2rem;
-//   grid-template-columns: 1fr 1fr 1fr;
-//   margin: 0 auto;
-//   width: 90%;
-// }
-// /* End of Reusable Generic Selectors/Components */
+.app-title {
+  color: $primary-color;
+  display: inline-block;
+  font-family: $title-font-stack;
+  font-size: 4rem;
+  text-decoration: none;
+}
+
+.question-wrapper {
+  display: block;
+  margin: 1rem 0;
+}
+
+.instruction {
+  margin: 1rem 0;
+}

@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 import {getCategories} from '../utils/api';
+import {wordifyNumber} from '../utils/helpers';
 
 class Categories extends React.Component {
   constructor(props) {
@@ -33,10 +35,11 @@ class Categories extends React.Component {
     return (
       loading
         ? <Loading />
-        : <div>
-            <h1>
+        : <React.Fragment>
+            <h1 className="instruction">
               {playerCount > 1
-                ? `Player ${playerCategories.length + 1}, choose three categories:`
+                ? `Player ${wordifyNumber(currentPlayer)},
+                   choose three categories:`
                 : 'Please choose three categories:'}
             </h1>
             {categories.map((category) =>
@@ -45,9 +48,13 @@ class Categories extends React.Component {
                 onClick={this.addPlayerCategory(currentPlayer, category.name)}>
                 {category.name}
               </button>)}
-          </div>
+          </React.Fragment>
     );
   }
+}
+
+Categories.propTypes = {
+  playerCount: PropTypes.number.isRequired
 }
 
 export default Categories;
