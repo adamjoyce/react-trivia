@@ -2,6 +2,7 @@ $primary-color: #00adb5;
 $primary-color-light: rgba(0, 173, 181, 0.65);
 $secondary-color: #eee;
 $tertiary-color: #222831;
+$btn-border: #009096;
 $title-font-stack: 'Lobster', cursive;
 $text-font-stack: 'Cabin', sans-serif;
 $default-v-margin: 1rem 0;
@@ -11,14 +12,16 @@ html {
 }
 
 body {
-  align-items: center;
   background-color: $secondary-color;
   color: $tertiary-color;
-  display: grid;
   font-family: $text-font-stack;
   height: 100%;
   margin: 0 1rem;
   text-align: center;
+}
+
+#app {
+  padding: 1rem 0;
 }
 
 .app-title {
@@ -36,4 +39,52 @@ body {
 
 .instruction {
   margin: 1rem 0;
+}
+
+.option-btn {
+  color: $secondary-color;
+  background-color: $primary-color;
+  border: none;
+  border-bottom: 2px solid $btn-border;
+  box-shadow: inset 0 -2px $btn-border;
+  display: block;
+  height: 3rem;
+  margin: 0.5rem auto;
+  padding: 0.5rem 0.2rem;
+  position: relative;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  width: 11rem;
+}
+
+.option-btn:hover {
+  opacity: 0.7;
+}
+
+.option-btn:focus {
+  outline: 0;
+}
+
+.option-btn:active {
+  box-shadow: none;
+  top: 1px;
+}
+
+.streamlined {
+  display: inline-block;
+  margin: 0.5rem 0.5rem;
+}
+
+.active-category {
+  background-color: $btn-border;
+}
+
+.active-category:hover {
+  opacity: 1;
+}
+
+@supports (display: grid) {
+  body {
+    align-items: center;
+    display: grid;
+  }
 }

@@ -16,6 +16,7 @@ class Loading extends React.Component {
       text: props.text
     };
   }
+  
   componentDidMount() {
     const { text, speed } = this.props;
     const stopper = text + '...';
@@ -26,9 +27,11 @@ class Loading extends React.Component {
         : this.setState((prevState) => ({ text: prevState.text + '.' }))
     }, speed);
   }
+
   componentWillUnmount() {
     window.clearInterval(this.interval);
   }
+
   render() {
     return (
       <p style={styles.content}>

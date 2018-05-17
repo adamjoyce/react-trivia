@@ -31,6 +31,7 @@ class Players extends React.Component {
         playerButtons.push(
           <button
             key={playerNumber}
+            className="option-btn"
             onClick={() => this.selectPlayers(playerNumber)}>
             {/* Deal with singular player instance. */}
             {wordifiedNumber !== 'One'
@@ -50,7 +51,7 @@ class Players extends React.Component {
                 <h2 className="instruction">How many of you want to play?</h2>
                 {playerButtons}
               </React.Fragment>
-            : <Categories playerCount={playerCount} />}
+            : <Categories playerCount={playerCount} categoriesPerPlayer={3} />}
         </div>
       </React.Fragment>
     );
