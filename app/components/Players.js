@@ -13,7 +13,6 @@ class Players extends React.Component {
   }
 
   selectPlayers(playerCount) {
-    console.log(playerCount + ' player(s) selected');
     this.setState(() => ({playerCount}));
   }
 

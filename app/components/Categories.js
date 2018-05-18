@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 import Category from './Category';
+import Questions from './Questions';
 import {getCategories} from '../utils/api';
 import {wordifyNumber} from '../utils/helpers';
 
@@ -31,9 +32,6 @@ class Categories extends React.Component {
     const {categoriesPerPlayer} = this.props;
     const {playerCategories, currentPlayer} = this.state;
     const playerIndex = playerNumber - 1;
-
-    console.log('PlayerCats: ', categoriesPerPlayer);
-    console.log('PlayerIndex: ', playerIndex);
 
     if (playerCategories.length < playerNumber) {
       // Add an empty player category array to avoid undefined errors.
@@ -86,7 +84,7 @@ class Categories extends React.Component {
                   togglePlayerCategory={this.togglePlayerCategory}
                 />)}
             </React.Fragment>
-          : <div>Categories Loaded</div>
+          : <Questions playerCategories={playerCategories} />
     );
   }
 }
