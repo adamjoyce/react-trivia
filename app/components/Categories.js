@@ -61,7 +61,6 @@ class Categories extends React.Component {
     const wordifiedCategoriesPerPlayer = wordifyNumber(categoriesPerPlayer);
     let categoryPlurality = 'categories'
     if (categoriesPerPlayer === 1) {categoryPlurality = 'category';}
-    console.log(playerCategories);
 
     return (
       loading

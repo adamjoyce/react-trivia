@@ -7,18 +7,31 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionCount: null
+      questionCount: null,
+      playerQuestions: []
     }
     this.setQuestionCount = this.setQuestionCount.bind(this);
   }
 
+  async componentDidUpdate(prevProps, prevState) {
+    const {playerCategories} = this.props;
+    const {questionCount} = this.state;
+    if (prevState.questionCount !== questionCount) {
+      // Grab all player's questions from the api.
+      const playerQuestions = await getPlayerQuestions(
+        playerCategories, questionCount
+      );
+      this.setState(() => ({playerQuestions}));
+    }
+  }
+
   setQuestionCount(questionCount) {
     this.setState(() => ({questionCount}));
-    getPlayerQuestions(this.props.playerCategories, questionCount);
   }
 
   render() {
     const {questionCount} = this.state;
+    console.log('PlayerQuestions: ', this.state.playerQuestions);
     return (
       questionCount === null
         ? <React.Fragment>
