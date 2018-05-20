@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Loading from './Loading';
+import QuestionSelection from './QuestionSelection';
 import Question from './Question';
 import {getPlayerQuestions} from '../utils/api';
 
@@ -36,27 +37,16 @@ class Questions extends React.Component {
     console.log('PlayerQuestions: ', this.state.playerQuestions);
     return (
       questionCount === null
-        ? <React.Fragment>
-            <h1 className="instruction">How many questions will you answer?</h1>
-            <button
-              className="option-btn"
-              onClick={() => this.setQuestionCount(10)}>
-              10 Questions
-            </button>
-            <button
-              className="option-btn"
-              onClick={() => this.setQuestionCount(25)}>
-              25 Questions
-            </button>
-            <button
-              className="option-btn"
-              onClick={() => this.setQuestionCount(50)}>
-              50 Questions
-            </button>
-          </React.Fragment>
+        ? <QuestionSelection setQuestionCount= {this.setQuestionCount} />
         : playerQuestions.length === 0
             ? <Loading />
-            : <Question question={playerQuestions[0][0]} />
+            : // Example for visual testing.
+              <Question
+                player={1}
+                question={playerQuestions[0][0]}
+                questionIndex={0}
+                questionCount={playerQuestions[0].length}
+              />
     );
   }
 }

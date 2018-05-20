@@ -6,6 +6,30 @@ import Category from './Category';
 import {getCategories} from '../utils/api';
 import {wordifyNumber} from '../utils/helpers';
 
+function CategoryInstruction(props) {
+  const {categoriesPerPlayer, playerCount, currentPlayer} = props;
+  const wordifiedCategoriesPerPlayer = wordifyNumber(categoriesPerPlayer);
+  let categoryPlurality = 'categories'
+  if (categoriesPerPlayer === 1) {categoryPlurality = 'category';}
+
+  return (
+    <h1 className="instruction">
+      {playerCount > 1
+        ? `Player ${wordifyNumber(currentPlayer)},
+           choose ${wordifiedCategoriesPerPlayer}
+           ${categoryPlurality}:`
+        : `Please choose ${wordifiedCategoriesPerPlayer}
+           ${categoryPlurality}:`}
+    </h1>
+  );
+}
+
+CategoryInstruction.propTypes = {
+  categoriesPerPlayer: PropTypes.number.isRequired,
+  playerCount: PropTypes.number.isRequired,
+  currentPlayer: PropTypes.number.isRequired
+}
+
 class CategorySelection extends React.Component {
   constructor(props) {
     super(props);
@@ -29,23 +53,17 @@ class CategorySelection extends React.Component {
            categoriesPerPlayer,
            toggleCategory} = this.props;
     const {categories, loading} = this.state;
-    const wordifiedCategoriesPerPlayer = wordifyNumber(categoriesPerPlayer);
-    let categoryPlurality = 'categories'
-    if (categoriesPerPlayer === 1) {categoryPlurality = 'category';}
 
     return (
       loading
         ? <Loading />
         : currentPlayer <= playerCount
           ? <React.Fragment>
-              <h1 className="instruction">
-                {playerCount > 1
-                  ? `Player ${wordifyNumber(currentPlayer)},
-                     choose ${wordifiedCategoriesPerPlayer}
-                     ${categoryPlurality}:`
-                  : `Please choose ${wordifiedCategoriesPerPlayer}
-                     ${categoryPlurality}:`}
-              </h1>
+              <CategoryInstruction
+                categoriesPerPlayer={categoriesPerPlayer}
+                playerCount={playerCount}
+                currentPlayer={currentPlayer}
+              />
               {categories.map((category) =>
                 <Category
                   key={category.id}
