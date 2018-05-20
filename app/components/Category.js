@@ -18,7 +18,7 @@ class Category extends React.Component {
   }
 
   handleClick(player, category) {
-    this.props.togglePlayerCategory(player, category);
+    this.props.toggleCategory(player, category);
     this.setState(() => ({active: !this.state.active}));
   }
 
@@ -41,7 +41,7 @@ class Category extends React.Component {
 Category.propTypes = {
   category: PropTypes.object.isRequired,
   player: PropTypes.number.isRequired,
-  togglePlayerCategory: PropTypes.func.isRequired
+  toggleCategory: PropTypes.func.isRequired
 }
 
 export default Category;

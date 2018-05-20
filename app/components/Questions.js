@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Loading from './Loading';
+import Question from './Question';
 import {getPlayerQuestions} from '../utils/api';
 
 class Questions extends React.Component {
@@ -30,7 +32,7 @@ class Questions extends React.Component {
   }
 
   render() {
-    const {questionCount} = this.state;
+    const {questionCount, playerQuestions} = this.state;
     console.log('PlayerQuestions: ', this.state.playerQuestions);
     return (
       questionCount === null
@@ -52,7 +54,9 @@ class Questions extends React.Component {
               50 Questions
             </button>
           </React.Fragment>
-        : <div>QUESTIONS!</div>
+        : playerQuestions.length === 0
+            ? <Loading />
+            : <Question question={playerQuestions[0][0]} />
     );
   }
 }

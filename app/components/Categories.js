@@ -1,35 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Loading from './Loading';
-import Category from './Category';
+import CategorySelection from './CategorySelection';
 import Questions from './Questions';
-import {getCategories} from '../utils/api';
-import {wordifyNumber} from '../utils/helpers';
 
 class Categories extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [],
       playerCategories: [],
       currentPlayer: 1,
-      loading: true
+      categoriesPerPlayer: 3,
+      categoriesSelected: false
     }
+    this.areCategoriesSelected = this.areCategoriesSelected.bind(this);
     this.togglePlayerCategory = this.togglePlayerCategory.bind(this);
   }
 
-  async componentDidMount() {
-    const categories = await getCategories();
-
-    this.setState(() => ({
-      categories,
-      loading: false
-    }));
+  // Determines when all players have selected their categories.
+  areCategoriesSelected(currentPlayer) {
+    if (currentPlayer === this.props.playerCount) {
+      // Ok to continue to next step of app.
+      this.setState(() => ({categoriesSelected: true}));
+    }
   }
 
+  // Builds player category arrays.
   togglePlayerCategory(playerNumber, category) {
-    const {categoriesPerPlayer} = this.props;
+    const {categoriesPerPlayer} = this.state;
     const {playerCategories, currentPlayer} = this.state;
     const playerIndex = playerNumber - 1;
 
@@ -52,45 +50,35 @@ class Categories extends React.Component {
     // Increment the player when three categories have been picked.
     if (playerCategories[playerIndex].length === categoriesPerPlayer) {
       this.setState(() => ({currentPlayer: currentPlayer + 1}));
+
+      // Flags when all categories have been selected by all players to
+      // continue.
+      this.areCategoriesSelected(currentPlayer);
     }
   }
 
   render() {
-    const {playerCount, categoriesPerPlayer} = this.props;
-    const {categories, playerCategories, currentPlayer, loading} = this.state;
-    const wordifiedCategoriesPerPlayer = wordifyNumber(categoriesPerPlayer);
-    let categoryPlurality = 'categories'
-    if (categoriesPerPlayer === 1) {categoryPlurality = 'category';}
+    const {playerCount} = this.props;
+    const {playerCategories,
+           currentPlayer,
+           categoriesPerPlayer,
+           categoriesSelected} = this.state;
 
     return (
-      loading
-        ? <Loading />
-        : currentPlayer <= playerCount
-          ? <React.Fragment>
-              <h1 className="instruction">
-                {playerCount > 1
-                  ? `Player ${wordifyNumber(currentPlayer)},
-                     choose ${wordifiedCategoriesPerPlayer}
-                     ${categoryPlurality}:`
-                  : `Please choose ${wordifiedCategoriesPerPlayer}
-                     ${categoryPlurality}:`}
-              </h1>
-              {categories.map((category) =>
-                <Category
-                  key={category.id}
-                  category={category}
-                  player={currentPlayer}
-                  togglePlayerCategory={this.togglePlayerCategory}
-                />)}
-            </React.Fragment>
-          : <Questions playerCategories={playerCategories} />
+      !categoriesSelected
+        ? <CategorySelection
+            playerCount={playerCount}
+            currentPlayer={currentPlayer}
+            categoriesPerPlayer={categoriesPerPlayer}
+            toggleCategory={this.togglePlayerCategory}
+          />
+        : <Questions playerCategories={playerCategories} />
     );
   }
 }
 
 Categories.propTypes = {
-  playerCount: PropTypes.number.isRequired,
-  categoriesPerPlayer: PropTypes.number.isRequired
+  playerCount: PropTypes.number.isRequired
 }
 
 export default Categories;
