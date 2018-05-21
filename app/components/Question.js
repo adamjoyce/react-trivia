@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Loading from './Loading';
 import {decodeHtml} from '../utils/helpers';
 
 const QuestionInformation = (props) => {
@@ -65,24 +66,28 @@ class Question extends React.Component {
            questionCount,
            setAnswer} = this.props;
     const {answers} = this.state;
+    console.log(question);
 
     return (
-      <React.Fragment>
-        <QuestionInformation
-          player={player}
-          questionIndex={questionIndex}
-          questionCount={questionCount}
-        />
-        <h1 className="instruction">{decodeHtml(question.question)}</h1>
-        {answers.map((answer) =>
-          <QuestionButton
-            key={answer}
-            player={player}
-            question={question}
-            answer={answer}
-            setAnswer={setAnswer}
-          />)}
-      </React.Fragment>
+      question === {}
+        // Loading component for the transition between players and to results.
+        ? <Loading />
+        : <React.Fragment>
+            <QuestionInformation
+              player={player}
+              questionIndex={questionIndex}
+              questionCount={questionCount}
+            />
+            <h1 className="instruction">{decodeHtml(question.question)}</h1>
+            {answers.map((answer) =>
+              <QuestionButton
+                key={answer}
+                player={player}
+                question={question}
+                answer={answer}
+                setAnswer={setAnswer}
+              />)}
+          </React.Fragment>
     );
   }
 }
