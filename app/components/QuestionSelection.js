@@ -20,7 +20,7 @@ QuestionSelectionButton.propTypes = {
 export default function QuestionSelection(props) {
   const {setQuestionCount} = props;
   const questionCounts = [10, 25, 50];
-  console.log();
+
   return (
     <React.Fragment>
       {questionCounts.map((questionCount) =>

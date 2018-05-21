@@ -11,9 +11,12 @@ class Questions extends React.Component {
     super(props);
     this.state = {
       questionCount: null,
-      playerQuestions: []
+      playerQuestions: [],
+      answeredQuestions: [],
+      currentPlayer: 1
     }
     this.setQuestionCount = this.setQuestionCount.bind(this);
+    this.setAnswer = this.setAnswer.bind(this);
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -32,21 +35,61 @@ class Questions extends React.Component {
     this.setState(() => ({questionCount}));
   }
 
+  setAnswer(player, question, answer) {
+    const {playerQuestions, answeredQuestions, currentPlayer} = this.state;
+    const playerIndex = player - 1;
+
+    if (answeredQuestions.length < playerQuestions.length) {
+      // Add an empty questions array to avoid undefined errors.
+      answeredQuestions.push([]);
+    }
+
+    // Add to player's array of answered questions.
+    let answeredQuestion = {question, answer};
+    answeredQuestions[playerIndex].push(answeredQuestion);
+
+    // Remove answered question from the player's remaining questions.
+    playerQuestions[playerIndex].splice(0, 1);
+
+    console.log('Answered: ', answeredQuestions[playerIndex]);
+    console.log('Remaining: ', playerQuestions[playerIndex]);
+
+    this.setState(() => ({
+      playerQuestions,
+      answeredQuestions
+    }));
+
+    if (playerQuestions[playerIndex] === []) {
+      // Attempt to increment the player.
+      if (playerIndex <= playerQuestions.length) {
+        this.setState(() => ({currentPlayer: playerIndex + 1}));
+      }
+      // else {
+      //   // All players have answered their questions - continue to results.
+      //   this.setState(() => ({allAnswered: true}));
+      // }
+    }
+  }
+
   render() {
-    const {questionCount, playerQuestions} = this.state;
-    console.log('PlayerQuestions: ', this.state.playerQuestions);
+    const {questionCount, playerQuestions, currentPlayer} = this.state;
+    const currentQuestions = playerQuestions[currentPlayer - 1];
+
     return (
       questionCount === null
-        ? <QuestionSelection setQuestionCount= {this.setQuestionCount} />
+        ? <QuestionSelection setQuestionCount={this.setQuestionCount} />
         : playerQuestions.length === 0
             ? <Loading />
-            : // Example for visual testing.
-              <Question
-                player={1}
-                question={playerQuestions[0][0]}
-                questionIndex={0}
-                questionCount={playerQuestions[0].length}
-              />
+            // Are questions left in the final player's question array?
+            : playerQuestions[playerQuestions.length - 1].length !== 0
+                ? <Question
+                     player={currentPlayer}
+                     question={currentQuestions[0]}
+                     questionIndex={(questionCount - currentQuestions.length) + 1}
+                     questionCount={questionCount}
+                     setAnswer={this.setAnswer}
+                   />
+                : <div>All Questions Answered!</div>
     );
   }
 }
